@@ -1,0 +1,36 @@
+<div class="example-container">
+  <mat-card-content>
+    <mat-toolbar class="subtitle" style="margin-bottom: 10px;width:auto;height: 30px;">
+      <header style="text-align: center; color:#ffffff; width:100%;" *ngIf="btnvisibility">Add Location</header>
+      <header style="text-align: center; color:#ffffff; width:100%;" *ngIf="!btnvisibility">Update Location</header>
+    </mat-toolbar>
+    <form [formGroup]="addForm" style="margin-top: 20px;">
+      <div class="main-container">
+        <div class="form-left">
+          <mat-form-field class="example-full-width">
+            <mat-label>Location Name</mat-label>
+            <input matInput formControlName="location_name" placeholder="Location Name" name="location_name"
+              class="form-control" id="location_name">
+            <mat-hint align="start" style="color:red" *ngIf="addForm.get('location_name').errors?.ShowError &&
+              addForm.get('location_name').invalid && 
+               (addForm.get('location_name').dirty || addForm.get('location_name').touched)">
+              {{addForm.get('location_name').errors?.ErrMessage}}</mat-hint>
+          </mat-form-field>
+
+          <!-- <mat-spinner *ngIf="loading"></mat-spinner> -->
+
+          <mat-card-actions>
+            <button mat-raised-button (click)="Add()" color="primary" [disabled]='addForm.invalid' *ngIf="btnvisibility"
+              style="width: 100px;float: right;margin-top: 150px;">Add</button>
+            <button mat-raised-button (click)="Update()" color="primary" [disabled]='addForm.invalid'
+              *ngIf="!btnvisibility" style=" margin-top: 150px; width: 100px;float: right;">Update</button>
+
+            <button mat-raised-button color="primary" mat-raised-button color="primary" mat-dialog-close
+              style="margin-top: 150px; width: 100px;float: left;">Close</button>
+          </mat-card-actions>
+
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</div>

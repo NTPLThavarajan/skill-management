@@ -1,0 +1,15 @@
+  .form-left{
+    width: 45%;
+    float: left
+    }
+
+  .form-right{
+    width: 45%;
+    float: left;
+    margin-left:10%;
+    }
+
+  .example-full-width {
+      width: 100% !important;
+      float: left
+    }

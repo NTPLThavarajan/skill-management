@@ -1,0 +1,121 @@
+<div class="example-container">
+  <mat-card-content>
+    <mat-toolbar class ="subtitle" style="margin-bottom: 10px;width:auto;height: 30px;">
+      <header style="margin-left: 200px;color:#ffffff;" *ngIf="btnvisibility">Add User</header>
+      <header style="margin-left: 200px;color:#ffffff;" *ngIf="!btnvisibility">Update User</header>
+    </mat-toolbar>
+    <form [formGroup]="addForm">
+      <div class="main-container">
+        <div class="form-left">
+          <mat-form-field class="example-full-width">
+            <mat-label>EmpId</mat-label>
+            <input matInput type="number" formControlName="emp_id" placeholder="EmpId" name="empId" class="form-control"
+              id="emp_id">
+
+            <mat-hint align="start" style="color:red" *ngIf="addForm.get('emp_id').errors?.ShowError &&
+              addForm.get('emp_id').invalid && 
+               (addForm.get('emp_id').dirty || addForm.get('emp_id').touched)">
+              {{addForm.get('emp_id').errors?.ErrMessage}}</mat-hint>
+
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="user_password" placeholder="Password" name="user_password"
+              class="form-control" id="user_password">
+            <mat-hint align="start" style="color:red" *ngIf="addForm.get('user_password').errors?.ShowError &&
+              addForm.get('user_password').invalid && 
+               (addForm.get('user_password').dirty || addForm.get('user_password').touched)">
+              {{addForm.get('user_password').errors?.ErrMessage}}</mat-hint>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Location</mat-label>
+
+            <input type="text" matInput formControlName="emp_location" name="location"
+              [matAutocomplete]="locationFilter">
+            <mat-icon matSuffix>arrow_drop_down</mat-icon>
+            <mat-autocomplete #locationFilter="matAutocomplete">
+              <mat-option *ngFor="let loc of locDetailsFilter | async" 
+              [value]="loc.location_name" [id]="loc.id">
+                {{loc.location_name}}
+              </mat-option>
+            </mat-autocomplete>
+
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Mobile No</mat-label>
+            <span matPrefix>+91 &nbsp;</span>
+            <input matInput type="number" formControlName="phoneno" placeholder="MobileNo" name="phoneno"
+              class="form-control" id="phoneno">
+            <mat-hint align="start" style="color:red" *ngIf="addForm.get('phoneno').errors?.ShowError &&
+              addForm.get('phoneno').invalid && 
+               (addForm.get('phoneno').dirty || addForm.get('phoneno').touched)">
+              {{addForm.get('phoneno').errors?.ErrMessage}}</mat-hint>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="emp_status" name="empStatus">
+              <mat-option value="Active">Active</mat-option>
+              <mat-option value="InActive">InActive</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-card-actions>
+            <button mat-raised-button (click)="Add()" color="primary" [disabled]='addForm.invalid' *ngIf="btnvisibility"
+              style="width: 100px;float: right;">Add</button>
+            <button mat-raised-button (click)="Update()" color="primary" [disabled]='addForm.invalid'
+              *ngIf="!btnvisibility" style="width: 100px;float: right;">Update</button>
+          </mat-card-actions>
+        </div>
+        <div class="form-right">
+          <mat-form-field class="example-full-width">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" formControlName="emp_name" placeholder="Name" name="emp_name"
+              class="form-control" id="emp_name">
+            <mat-hint align="start" style="color:red" *ngIf="addForm.get('emp_name').errors?.ShowError &&
+              addForm.get('emp_name').invalid && 
+               (addForm.get('emp_name').dirty || addForm.get('emp_name').touched)">
+              {{addForm.get('emp_name').errors?.ErrMessage}}</mat-hint>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>BusinessUnit</mat-label>
+            <input type="text" matInput formControlName="bu_unitno" name="businessUnit" [matAutocomplete]="buFilter">
+            <mat-icon matSuffix>arrow_drop_down</mat-icon>
+            <mat-autocomplete #buFilter="matAutocomplete">
+              <mat-option *ngFor="let bu of buDetailsFilter | async " [value]="bu.bu_name" [id]="bu.id">
+                {{bu.bu_name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Designation</mat-label>
+            <input type="text" matInput formControlName="designation" name="designation" [matAutocomplete]="desgFilter">
+            <mat-icon matSuffix>arrow_drop_down</mat-icon>
+            <mat-autocomplete #desgFilter="matAutocomplete">
+              <mat-option *ngFor="let desg of desgDetailsFilter | async " [value]="desg.role_name" [id]="desg.id">
+                {{desg.role_name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Review Access</mat-label>
+            <mat-select formControlName="can_review" name="canReview">
+              <mat-option value="No">No</mat-option>
+              <mat-option value="Yes">Yes</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Mail Id</mat-label>
+            <input matInput type="text" formControlName="mailid" placeholder="MailId" name="mailid" class="form-control"
+              id="mailid">
+            <mat-hint align="start" style="color:red" *ngIf="addForm.get('mailid').errors?.ShowError &&
+              addForm.get('mailid').invalid && 
+               (addForm.get('mailid').dirty || addForm.get('mailid').touched)">
+              {{addForm.get('mailid').errors?.ErrMessage}}</mat-hint>
+          </mat-form-field>
+          <mat-card-actions>
+            <button mat-raised-button mat-dialog-close color="primary" style="width: 100px;float: left;">Close</button>
+          </mat-card-actions>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</div>

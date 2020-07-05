@@ -1,0 +1,37 @@
+<div class="example-container">
+  <mat-card-content>
+    <mat-toolbar class ="subtitle" style="margin-bottom: 10px;width:auto;height: 30px;">
+      <header style="text-align: center;color:#ffffff; width:100%;" *ngIf="btnvisibility">Add Roll Master</header>
+      <header style="text-align: center;color:#ffffff; width:100%;" *ngIf="!btnvisibility">Update Roll Master</header>
+    </mat-toolbar>
+
+    <form [formGroup]="AddRollMaster">
+      <mat-dialog-content>
+        <div>
+          <p>
+            <mat-form-field style="width: 100%;">
+              <input matInput placeholder="Roll Name" formControlName="RollName" class="form-control">
+
+              <mat-hint align="start" style="color:red" *ngIf="AddRollMaster.get('RollName').errors?.ShowError &&
+              AddRollMaster.get('RollName').invalid && 
+               (AddRollMaster.get('RollName').dirty || AddRollMaster.get('RollName').touched)">
+                {{AddRollMaster.get('RollName').errors?.ErrMessage}}</mat-hint>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-checkbox color="primary" style="width: 100%;" formControlName="CanReview" class="form-control">Can Review
+            </mat-checkbox>
+          </p>
+        </div>
+      </mat-dialog-content>
+
+      <mat-card-actions>
+        <button mat-raised-button mat-dialog-close color="primary" style="width: 100px;float: right;">Close</button>
+        <button mat-raised-button (click)="Add()" color="primary" [disabled]='AddRollMaster.invalid'
+          *ngIf="btnvisibility" style="width: 100px;float: right;">Add</button>
+        <button mat-raised-button (click)="Update()" color="primary" [disabled]='AddRollMaster.invalid'
+          *ngIf="!btnvisibility" style="width: 100px;float: right;">Update</button>
+      </mat-card-actions>
+    </form>
+  </mat-card-content>
+</div>

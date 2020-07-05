@@ -1,0 +1,87 @@
+<div class="example-container">
+  <mat-card-content style="width:100%;">
+    <mat-toolbar class ="subtitle" style="margin-bottom: 10px;width:auto;height: 30px;">
+      <header style="text-align: center; color:#ffffff; width:100%;" *ngIf="btnvisibility">Add Skill Master</header>
+      <header style="text-align: center; color:#ffffff; width:100%;" *ngIf="!btnvisibility">Update Skill Master</header>
+    </mat-toolbar>
+
+    <form [formGroup]="AddSkillMaster">
+      <mat-dialog-content>
+        <div>
+          <p>
+            <mat-form-field style="width: 100%;">
+              <input matInput placeholder="Skill Type" formControlName="SkillType" class="form-control">
+
+              <mat-hint align="start" style="color:red" *ngIf="AddSkillMaster.get('SkillType').errors?.ShowError &&
+              AddSkillMaster.get('SkillType').invalid && 
+            (AddSkillMaster.get('SkillType').dirty || AddSkillMaster.get('SkillType').touched)">
+                {{AddSkillMaster.get('SkillType').errors?.ErrMessage}}</mat-hint>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field style="width: 100%;">
+              <input type="text" placeholder="Skill Group" matInput formControlName="SkillGroup"
+                [matAutocomplete]="Skill">
+              <mat-icon matSuffix>arrow_drop_down</mat-icon>
+              <mat-autocomplete autoActiveFirstOption #Skill="matAutocomplete"
+                (optionSelected)="SkillGroupSelectionChanged($event)">
+                <mat-option *ngFor="let option of SkillGroupFilter | async" [value]="option.Name" [id]="option.id">
+                  {{option.Name}}
+                </mat-option>
+              </mat-autocomplete>
+
+              <mat-hint align="start" style="color:red" *ngIf="AddSkillMaster.get('SkillGroup').errors?.ShowError &&
+              AddSkillMaster.get('SkillGroup').invalid && 
+               (AddSkillMaster.get('SkillGroup').dirty || AddSkillMaster.get('SkillGroup').touched)">
+                {{AddSkillMaster.get('SkillGroup').errors?.ErrMessage}}</mat-hint>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field style="width: 100%;">
+              <input matInput placeholder="Skill Name" formControlName="SkillName" class="form-control">
+
+              <mat-hint align="start" style="color:red" *ngIf="AddSkillMaster.get('SkillName').errors?.ShowError &&
+              AddSkillMaster.get('SkillName').invalid && 
+            (AddSkillMaster.get('SkillName').dirty || AddSkillMaster.get('SkillName').touched)">
+                {{AddSkillMaster.get('SkillName').errors?.ErrMessage}}</mat-hint>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field style="width: 100%;">
+              <textarea matInput placeholder="Description" formControlName="Description"
+                class="form-control"></textarea>
+              <mat-hint align="start" style="color:red" *ngIf="AddSkillMaster.get('Description').errors?.ShowError &&
+              AddSkillMaster.get('Description').invalid && 
+            (AddSkillMaster.get('Description').dirty || AddSkillMaster.get('Description').touched)">
+                {{AddSkillMaster.get('Description').errors?.ErrMessage}}</mat-hint>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field style="width: 100%;">
+              <input type="text" placeholder="Parent Skill" matInput formControlName="ParentSkill"
+                [matAutocomplete]="PSkill">
+              <mat-icon matSuffix>arrow_drop_down</mat-icon>
+              <mat-autocomplete autoActiveFirstOption #PSkill="matAutocomplete"
+                (optionSelected)="ParentSkillSelectionChanged($event)">
+                <mat-option *ngFor="let option of ParentSkillFilter | async" [value]="option.SkillName"
+                  [id]="option.id">
+                  {{option.SkillName}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </p>
+        </div>
+      </mat-dialog-content>
+
+      <mat-card-actions>
+        <button mat-raised-button mat-dialog-close color="primary" style="width: 100px;float: right;">Close</button>
+          
+        <button mat-raised-button (click)="Add()" color="primary" [disabled]='AddSkillMaster.invalid'
+          *ngIf="btnvisibility" style="width: 100px;float: right;">Add</button>
+        <button mat-raised-button (click)="Update()" color="primary" [disabled]='AddSkillMaster.invalid'
+          *ngIf="!btnvisibility" style="width: 100px;float: right;">Update</button>        
+          
+      </mat-card-actions>
+    </form>
+  </mat-card-content>
+</div>

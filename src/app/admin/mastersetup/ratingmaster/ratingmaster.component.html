@@ -1,0 +1,51 @@
+<div style="margin:60px;width:auto">
+    <mat-toolbar class="toolbarheader">
+      <div style="width:33.5%;float:left">
+        <mat-form-field>
+          <mat-label class="filter">Filter</mat-label>
+          <input class="filter" matInput (keyup)="applyFilter($event)" placeholder="Ex.ABC | 123">
+        </mat-form-field>
+      </div>
+      <div style="width:33%;float:left">
+        <p class="title">RATING MASTER</p>
+      </div>
+      <div style="width:33.5%;float:left">
+        <button mat-mini-fab style="float:right;background-color:#1A237E;">
+          <mat-icon matTooltip="Add New User"  
+          (click)="openDialog('Add',{})" matTooltipPosition="below">
+            add</mat-icon>
+        </button>
+      </div>
+    </mat-toolbar>
+  
+    <table mat-table [dataSource]="dataSource" matSort class="tableheader" width =100%>
+      <ng-container matColumnDef="rating_id" width ="20%">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header" width ="20%"> Rating ID </th>
+        <td mat-cell *matCellDef="let element" class="column"> {{element.id}} </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="rating" width ="50%">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header" width ="50%"> Name </th>
+        <td mat-cell *matCellDef="let element" class="column"> {{element.rating}} </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="action" width ="30%">
+        <th mat-header-cell *matHeaderCellDef class="header" width ="30%"> Action </th>
+        <td mat-cell *matCellDef="let element" style="width:80px;">
+          <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary" style="width: 30px;height:10px;">
+            <mat-icon aria-label="Edit" (click)="openDialog('Update',element)" style="font-size: 25px; float:left;">edit
+            </mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" color="warn" style="width: 30px;height:10px;">
+            <mat-icon aria-label="Delete" (click)="DeleteUser(element)"  style="font-size: 25px; float:left;">delete
+            </mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" style="background-color:#BBDEFB"></tr>>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+      </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons class="table"
+      style="margin:0px 60px 0px 0px;color: black;"></mat-paginator>
+  </div>

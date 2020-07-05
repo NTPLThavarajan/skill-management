@@ -1,0 +1,14 @@
+<div class="main-container">
+  <div>
+    <p>{{message}}</p>
+  </div>
+  <div *ngIf=confirm class="form-left">
+    <button mat-button (click)="onDismiss()">No</button>
+  </div>
+  <div *ngIf=confirm class="form-right">
+    <button mat-raised-button color="primary" (click)="onConfirm()">Yes</button>
+  </div>
+  <div *ngIf=!confirm>
+    <button mat-raised-button color="primary" (click)="onConfirm()">Ok</button>
+  </div>
+</div>
